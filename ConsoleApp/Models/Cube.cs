@@ -11,56 +11,100 @@ namespace ConsoleApp.Models
         public int[] FrontLineNumbers { get; set; }
         public int BottomNumber { get; set; }
 
-        public int TurnLeft(int currentNumber)
+        public int TurnLeft(int currentNumber, int lastFrontLineIndex)
         {
-            var currentIndex = FindIndex(currentNumber, this.FrontLineNumbers);
-
-            if (currentIndex == this.FrontLineNumbers.Length - 1)
+            if (currentNumber == this.BottomNumber || currentNumber == this.TopNumber)
             {
-                return 0;
+                lastFrontLineIndex = 3;
+                return lastFrontLineIndex;
             }
+            
+            else if (lastFrontLineIndex == this.FrontLineNumbers.Length - 1)
+            {
+                lastFrontLineIndex = 0;
+                return lastFrontLineIndex;
+            }
+
             else
             {
-                return currentIndex + 1;
+                lastFrontLineIndex ++;
+                return lastFrontLineIndex;
             }
         }
 
-        public int TurnRight(int currentNumber)
+        public int TurnRight(int currentNumber, int lastFrontLineIndex)
         {
-            var currentIndex = FindIndex(currentNumber, this.FrontLineNumbers);
-
-            if (currentIndex == 0)
+            if (currentNumber == this.BottomNumber || currentNumber == this.TopNumber)
             {
-                return this.FrontLineNumbers.Length - 1;
+                lastFrontLineIndex = 1;
+                return lastFrontLineIndex;
+            }
+
+            if (lastFrontLineIndex == 0)
+            {
+                lastFrontLineIndex = this.FrontLineNumbers.Length - 1;
+                return lastFrontLineIndex;
             }
             else
             {
-                return currentIndex - 1;
+                lastFrontLineIndex --;
+                return lastFrontLineIndex;
             }
         }
 
-        public int TurnUp(int currentNumber)
+        public int TurnUp(int currentNumber, int lastFrontLineIndex)
         {
             if (this.FrontLineNumbers.Contains(currentNumber))
             {
                 return this.BottomNumber;
             }
+
+            else if (currentNumber == this.BottomNumber)
+            {
+                return this.FrontLineNumbers[lastFrontLineIndex];
+            }
+
             else
             {
-                return this.FrontLineNumbers[0];
+                if (lastFrontLineIndex + 2 > this.FrontLineNumbers.Length - 1)
+                {
+                    lastFrontLineIndex = lastFrontLineIndex - 2;
+                }
+
+                else
+                {
+                    lastFrontLineIndex += 2;
+                }
+
+                return this.FrontLineNumbers[lastFrontLineIndex];
             }
         }
 
-        public int TurnDown(int currentNumber)
+        public int TurnDown(int currentNumber, int lastFrontLineIndex)
         {
-            
             if (this.FrontLineNumbers.Contains(currentNumber))
             {
                 return this.TopNumber;
             }
+
+            else if (currentNumber == this.TopNumber)
+            {
+                return this.FrontLineNumbers[lastFrontLineIndex];
+            }
+
             else
             {
-                return this.FrontLineNumbers[0];
+                if (lastFrontLineIndex + 2 > this.FrontLineNumbers.Length - 1)
+                {
+                    lastFrontLineIndex = lastFrontLineIndex - 2;
+                }
+
+                else
+                {
+                    lastFrontLineIndex += 2;
+                }
+
+                return this.FrontLineNumbers[lastFrontLineIndex];
             }
         }
 
@@ -78,20 +122,21 @@ namespace ConsoleApp.Models
             return 0;
         }
 
-        public static int FindIndex(int currentNumber, int[] intArray)
-        {
-            var currentNumberIndex = -1;
-            if (intArray.Contains(currentNumber))
-            {
-                for (int i = 0; i < intArray.Length; i++)
-                {
-                    if (intArray[i] == currentNumber)
-                    {
-                        currentNumberIndex = i;
-                    }
-                }
-            }
-            return currentNumberIndex;
-        }
+        // Create FindIndex method, but not use for now with 
+        //public static int FindIndex(int currentNumber, int[] intArray)
+        //{
+        //    var currentNumberIndex = -1;
+        //    if (intArray.Contains(currentNumber))
+        //    {
+        //        for (int i = 0; i < intArray.Length; i++)
+        //        {
+        //            if (intArray[i] == currentNumber)
+        //            {
+        //                currentNumberIndex = i;
+        //            }
+        //        }
+        //    }
+        //    return currentNumberIndex;
+        //}
     }
 }
