@@ -14,14 +14,14 @@ namespace ConsoleApp
             Console.WriteLine("The first word must be \"left\" or \"right\" to show which cube you want to rotate");
             Console.WriteLine("The second can be: \"left\", \"right\", \"up\", \"donw\" or \"rotate\"(you guess for what :) ) for the direction of rotation of the cube");
             Console.WriteLine("For example: \"left left\", \"right left\", \"right up\", \"left rotate\"");
-            Console.WriteLine("You can rotate the cubes(the left to become right) with command: \"rotate cubes\"");
+            Console.WriteLine("You can swap the cubes(the left to become right) with command: \"swap cubes\"");
             Console.WriteLine();
             Console.WriteLine("The numbers for the left cube at the start are: 1, 2, 3, 4 on the line, 0 on the bottom and 5 on the top");
             Console.WriteLine("The numbers for the right cube at the start are: 1, 2, 6, 7 on the line, 0 on the bottom and 8 on the top");
             Console.WriteLine();
 
             
-            //creating cube A
+            //Creating cube A
             var cubeA = new Cube
             {
                 BottomNumber = 0,
@@ -32,7 +32,7 @@ namespace ConsoleApp
                 }
             };
 
-            //creating cube B
+            //Creating cube B
             var cubeB = new Cube
             {
                 BottomNumber = 0,
@@ -43,13 +43,14 @@ namespace ConsoleApp
                 }
             };
 
-            //defaul start value of the cubes: number and index
+            //Defaul start value of the cubes: number and index
             var currentLeftNumber = 1;
             var currentRightNumber = 1;
             var lastFrontLineLeftIndex = 0;
             var lastFrontLineRightIndex = 0;
 
-            Console.WriteLine("And the start value of the cubes is:");
+
+            Console.WriteLine("And the start values of the cubes are:");
             Console.WriteLine($"   {currentLeftNumber} {currentRightNumber}");
            
             var input = Console.ReadLine();
@@ -70,6 +71,7 @@ namespace ConsoleApp
                     var cubeParam = inputParams[0].ToLower();
                     var commandParam = inputParams[1].ToLower();
 
+                    //Behavior of the Left Cube
                     if (cubeParam == "left")
                     {
                         if (commandParam == "left")
@@ -97,6 +99,7 @@ namespace ConsoleApp
                                 {
                                     lastFrontLineLeftIndex = lastFrontLineLeftIndex - 2;
                                 }
+
                                 else
                                 {
                                     lastFrontLineLeftIndex += 2;
@@ -115,6 +118,7 @@ namespace ConsoleApp
                                 {
                                     lastFrontLineLeftIndex = lastFrontLineLeftIndex - 2;
                                 }
+
                                 else
                                 {
                                     lastFrontLineLeftIndex += 2;
@@ -144,7 +148,7 @@ namespace ConsoleApp
                         }
                     }
 
-                    //behavior of right cube
+                    //Behavior of the Right Cube
                     else if (cubeParam == "right")
                     {
                         if (commandParam == "left")
@@ -172,11 +176,13 @@ namespace ConsoleApp
                                 {
                                     lastFrontLineRightIndex = lastFrontLineRightIndex - 2;
                                 }
+
                                 else
                                 {
                                     lastFrontLineRightIndex += 2;
                                 }
                             }
+
                             Console.WriteLine($"   {currentLeftNumber} {currentRightNumber}");
                         }
 
@@ -189,11 +195,13 @@ namespace ConsoleApp
                                 {
                                     lastFrontLineRightIndex = lastFrontLineRightIndex - 2;
                                 }
+
                                 else
                                 {
                                     lastFrontLineRightIndex += 2;
                                 }
                             }
+
                             Console.WriteLine($"   {currentLeftNumber} {currentRightNumber}");
                         }
 
@@ -218,8 +226,8 @@ namespace ConsoleApp
                         }
                     }
 
-                    // rotate cubes from left to right
-                    else if (cubeParam == "rotate" && commandParam == "cubes")
+                    // Rotate the Cubes from left to right
+                    else if (cubeParam == "swap" && commandParam == "cubes")
                     {
                         var currentCube = cubeA;
                         cubeA = cubeB;
@@ -230,7 +238,7 @@ namespace ConsoleApp
                         lastFrontLineLeftIndex = 0;
                         lastFrontLineRightIndex = 0;
 
-                        Console.WriteLine("The cubes are rotated.");
+                        Console.WriteLine("The cubes are swapped.");
                         Console.WriteLine($"   {currentLeftNumber} {currentRightNumber}");
                     }
 
